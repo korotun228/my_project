@@ -1,0 +1,21 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: test
+spec:
+  tls:
+  - hosts:
+    - martyniuk-devops.ml
+    secretName: test-app
+  rules:
+  - host: martyniuk-devops.ml
+    http:
+      paths:
+      - path: /
+        pathType: Prefix
+        backend:
+          service:
+            name: test
+            port:
+              number: 80
+  ingressClassName: nginx

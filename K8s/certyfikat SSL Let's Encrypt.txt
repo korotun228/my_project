@@ -1,0 +1,20 @@
+W0517 18:41:29.538450   19062 gcp.go:120] WARNING: the gcp auth plugin is deprecated in v1.22+, unavailable in v1.25+; use gcloud instead.
+To learn more, consult https://cloud.google.com/blog/products/containers-kubernetes/kubectl-auth-changes-in-gke
+Name:         test-app
+Namespace:    default
+Labels:       <none>
+Annotations:  cert-manager.io/alt-names: martyniuk-devops.ml
+              cert-manager.io/certificate-name: example-app
+              cert-manager.io/common-name: martyniuk-devops.ml
+              cert-manager.io/ip-sans: 
+              cert-manager.io/issuer-group: 
+              cert-manager.io/issuer-kind: ClusterIssuer
+              cert-manager.io/issuer-name: cluster-issuer
+              cert-manager.io/uri-sans: 
+
+Type:  kubernetes.io/tls
+
+Data
+====
+tls.crt:  5603 bytes
+tls.key:  1679 bytes

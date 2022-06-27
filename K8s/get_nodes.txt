@@ -1,0 +1,5 @@
+W0516 12:26:51.271518   13529 gcp.go:120] WARNING: the gcp auth plugin is deprecated in v1.22+, unavailable in v1.25+; use gcloud instead.
+To learn more, consult https://cloud.google.com/blog/products/containers-kubernetes/kubectl-auth-changes-in-gke
+NAME                                  STATUS   ROLES    AGE     VERSION            INTERNAL-IP   EXTERNAL-IP     OS-IMAGE                             KERNEL-VERSION   CONTAINER-RUNTIME
+gke-test-default-pool-53146e7e-61q5   Ready    <none>   3m10s   v1.21.11-gke.900   10.128.0.6    35.225.109.63   Container-Optimized OS from Google   5.4.170+         containerd://1.4.8
+gke-test-default-pool-53146e7e-t6vv   Ready    <none>   3m10s   v1.21.11-gke.900   10.128.0.5    34.134.219.22   Container-Optimized OS from Google   5.4.170+         containerd://1.4.8
