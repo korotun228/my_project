@@ -1,0 +1,82 @@
+---
+- name: test
+  hosts: all
+  become: yes
+
+  vars:
+   
+    src_file:
+            - ntp.j2
+            - lxc_conf.j2  
+            - /flask_web_app/
+    dest_file: 
+            - /etc/ntp.conf
+            - /etc/lxc/lxc-tamplate.conf
+            - /flask_web_app/
+    ntp_server: ntp.assecobs.pl
+    pakages:
+            - ntp
+            - lxc
+    add_users_name: User1
+
+
+  tasks:
+  
+   - name: Add_new_user
+     user:
+       name: "{{ add_users_name }}"
+       password: "{{ 'mypassword' | password_hash('sha512') }}"
+       state: present
+
+  
+   - name: check/install  clients
+     package:
+      name="{{ pakages }}"
+      state=present
+     
+   - name:  copy files
+     template:
+      src="{{ src_file }}"
+      dest="{{ dest_file }}"
+      owner=root
+      group=root
+      mode=0555
+   
+   - name: mount cgroup sysfs
+     mount:
+       src=cgroup
+       name='/sys/fs/cgroup'
+       opts=defaults
+       fstype=cgroup
+       state=mounted
+  
+   - name: restart clients
+     service: 
+      name="{{ pakages }}"
+      state=restarted
+      enabled=yes
+  
+   - name: Create a started container
+     community.general.lxc_container:
+         name: c1
+         container_log: true
+         template: ubuntu
+         state: started
+         template_options: --release trusty
+         container_command: |
+           sudo apt-get -y update
+           sudo apt-get -y install apache2
+           sudo rm /var/www/html/index.html
+
+   - name: push web-app
+     command: "lxc file push flask_web_app/ c1/var/www/html/"
+ 
+   - name: Clone a container using snapshot
+     community.general.lxc_container:
+         name: test-container-overlayfs-clone-snapshot
+         backing_store: overlayfs
+         clone_name: c2
+         clone_snapshot: true
+           
+
+...
